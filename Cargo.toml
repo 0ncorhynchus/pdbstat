@@ -1,0 +1,7 @@
+[package]
+name = "pdbstat"
+version = "0.1.0"
+authors = ["Suguru Kato <salmon.bioinformatics@gmail.com>"]
+
+[dependencies]
+chemfiles = "0.7.40"

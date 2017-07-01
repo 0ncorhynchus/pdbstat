@@ -1,0 +1,49 @@
+[root]
+name = "pdbstat"
+version = "0.1.0"
+dependencies = [
+ "chemfiles 0.7.40 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "chemfiles"
+version = "0.7.40"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "chemfiles-sys 0.7.40 (registry+https://github.com/rust-lang/crates.io-index)",
+ "libc 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "chemfiles-sys"
+version = "0.7.40"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "cmake 0.1.24 (registry+https://github.com/rust-lang/crates.io-index)",
+ "libc 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "cmake"
+version = "0.1.24"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+dependencies = [
+ "gcc 0.3.51 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "gcc"
+version = "0.3.51"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "libc"
+version = "0.2.24"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[metadata]
+"checksum chemfiles 0.7.40 (registry+https://github.com/rust-lang/crates.io-index)" = "67296d985c10778f488ff623588a61f0adcf74937f258c613d9730f8b487c37c"
+"checksum chemfiles-sys 0.7.40 (registry+https://github.com/rust-lang/crates.io-index)" = "42b3fc45bd9ed65eb25ae671bb1a1e7f8be27e738074d4be8fb06f0d2f661252"
+"checksum cmake 0.1.24 (registry+https://github.com/rust-lang/crates.io-index)" = "b8ebbb35d3dc9cd09497168f33de1acb79b265d350ab0ac34133b98f8509af1f"
+"checksum gcc 0.3.51 (registry+https://github.com/rust-lang/crates.io-index)" = "120d07f202dcc3f72859422563522b66fe6463a4c513df062874daad05f85f0a"
+"checksum libc 0.2.24 (registry+https://github.com/rust-lang/crates.io-index)" = "38f5c2b18a287cf78b4097db62e20f43cace381dc76ae5c0a3073067f78b7ddc"
