@@ -3,8 +3,9 @@ mod lib;
 
 use std::env;
 use std::path::Path;
-use lib::error::Error;
+use lib::error::{Error, Result};
 use lib::distance::print_distances;
+use lib::bond::print_bond_distances;
 
 use chemfiles::{Trajectory, Frame};
 
@@ -13,7 +14,15 @@ fn print_usage(called_name: &str) {
                         .file_name()
                         .map(|name| name.to_str().unwrap_or(called_name))
                         .unwrap_or(called_name);
-    println!("Usage: {} FILE name1 name2", progname);
+    println!("Usage: {} FILE COMMAND [args ...]", progname);
+}
+
+fn call_command(frame: &Frame, command: &str, args: &[String]) -> Result<()> {
+    match command {
+        "bond"     => print_bond_distances(frame, args),
+        "distance" => print_distances(frame, args),
+        _          => Err(Error::InvalidArgument)
+    }
 }
 
 fn main() {
@@ -30,7 +39,7 @@ fn main() {
 
     trajectory.read(&mut frame).unwrap();
 
-    match print_distances(&frame, &args[2..]) {
+    match call_command(&frame, &args[2], &args[3..]) {
         Ok(_) => {},
         Err(e) => match e {
             Error::InvalidArgument => print_usage(&args[0]),

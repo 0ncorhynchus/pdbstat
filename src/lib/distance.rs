@@ -1,4 +1,5 @@
 use lib::error::{Error, Result};
+use lib::util::calc_distance;
 use chemfiles::{Frame, Selection};
 
 fn list_pairs(frame: &Frame, name1: &str, name2: &str) -> Result<Vec<[u64; 2]>> {
@@ -9,12 +10,6 @@ fn list_pairs(frame: &Frame, name1: &str, name2: &str) -> Result<Vec<[u64; 2]>> 
                 .iter()
                 .map(|pair| [pair[0], pair[1]])
                 .collect())
-}
-
-fn calc_distance(pos1: &[f64; 3], pos2: &[f64; 3]) -> f64 {
-    ((pos2[0] - pos1[0]).powi(2)
-     + (pos2[1] - pos1[1]).powi(2)
-     + (pos2[2] - pos1[2]).powi(2)).sqrt()
 }
 
 pub fn print_distances(frame: &Frame, args: &[String]) -> Result<()> {
