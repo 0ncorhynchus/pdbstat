@@ -1,5 +1,5 @@
 use lib::error::{Error, Result};
-use lib::util::calc_distance;
+use lib::util::{calc_distance, list_residue_and_name};
 use chemfiles::Frame;
 
 pub fn print_bond_distances(frame: &Frame, args: &[String]) -> Result<()> {
@@ -9,33 +9,18 @@ pub fn print_bond_distances(frame: &Frame, args: &[String]) -> Result<()> {
     let (name1, name2) = (&args[0], &args[1]);
 
     let natoms = frame.natoms()?;
-    let (residue_ids, atom_names) = {
-        let topology = frame.topology()?;
-        let max_id = topology.residues_count()?;
-        let mut ids = vec![0; natoms as usize];
-        let mut names = vec![String::new(); natoms as usize];
-
-        for i in 0..natoms {
-            ids[i as usize] = match topology.residue_for_atom(i)? {
-                Some(residue) => residue.id()?,
-                None          => max_id,
-            };
-            names[i as usize] = topology.atom(i)?.name()?;
-        }
-
-        (ids, names)
-    };
-
     let positions = frame.positions()?;
+    let (residue_ids, atom_names) = list_residue_and_name(&frame.topology()?)?;
 
     println!("id1, id2, distance");
     for i in 1..(natoms as usize) {
-        if atom_names[i] != *name1 && atom_names[i] != *name2 {
+        if (atom_names[i] != *name1 && atom_names[i] != *name2)
+            || residue_ids[i].is_none() {
             continue;
         }
 
         for j in 0..i {
-            if residue_ids[i] != residue_ids[j] {
+            if residue_ids[j].is_none() || residue_ids[i] != residue_ids[j] {
                 continue;
             }
 
