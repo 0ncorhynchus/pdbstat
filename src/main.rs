@@ -27,19 +27,20 @@ fn call_command(frame: &Frame, command: &str, args: &[String]) -> Result<()> {
 
 fn main() {
     let args : Vec<String> = env::args().collect();
-    if args.len() < 2 {
+    if args.len() < 3 {
         print_usage(&args[0]);
         return;
     }
 
     let filename = &args[1];
+    let command = &args[2];
 
     let mut trajectory = Trajectory::open(filename, 'r').unwrap();
     let mut frame = Frame::new().unwrap();
 
     trajectory.read(&mut frame).unwrap();
 
-    match call_command(&frame, &args[2], &args[3..]) {
+    match call_command(&frame, command, &args[3..]) {
         Ok(_) => {},
         Err(e) => match e {
             Error::InvalidArgument => print_usage(&args[0]),
